@@ -1,0 +1,25 @@
+/* Estilo para a tabela */
+.table {
+    width: 50%;
+    border-collapse: collapse;
+  }
+  
+  /* Estilo para o cabeçalho da tabela */
+  .thead {
+    background-color: #8fd0c7;
+  }
+  
+  /* Estilo para as células do cabeçalho */
+  .thead th {
+    padding: 0.7rem;
+    text-align: left;
+  }
+  
+  /* Estilo para as células das linhas de dados */
+  .td {
+    padding: 0.7rem;
+    border-bottom: 1px solid #ddd;
+  }
+ 
+  
+  
