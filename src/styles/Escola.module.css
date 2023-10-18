@@ -14,8 +14,7 @@
 
 aside.logo {
   grid-area: logo;
-  width: 20%;
-}
+  }
 
 nav.menu {
   grid-area: menu;

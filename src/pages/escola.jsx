@@ -7,13 +7,21 @@ import { useRouter } from "next/router";
 import ListaAlunos from "@/components/Alunos/ListaAlunos";
 import Login from "@/components/Login/Login";
 import { useEffect, useState } from "react";
-import Logout from "@/components/Logout/Logout"
+import Logout from "@/components/Logout/Logout";
 import AuthService from "@/services/AuthService";
+import { useAppContext } from "@/data/context/AppContext";
+import { useLocalStorage } from "@/data/context/LocalStorageContext";
+
 export default function escola() {
   const router = useRouter();
   const id = router.query.id;
+
+  const dados = useAppContext();
+
   //console.log(id)
   const [currentUser, setCurrentUser] = useState(undefined);
+  const localStorageData = useLocalStorage();
+
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
@@ -25,6 +33,7 @@ export default function escola() {
       return (
         <Corpo titulo="Bem vindo!">
           <div>Cadastro de alunos, cursos e carômetro</div>
+          <h2>{dados.nome}</h2>
         </Corpo>
       );
     }
@@ -34,7 +43,7 @@ export default function escola() {
     if (id === "logout") {
       return <Logout />;
     }
-    if (currentUser) {
+    if (localStorage.getItem("user")) {
       if (id === "alunos") {
         return (
           <Corpo titulo="Cadastro de Alunos">
