@@ -1,8 +1,8 @@
 import axios from "axios";
-const API_URL = "http://localhost:5241/api/Home/";
+const API_URL = "http://localhost:5241/";
 const login = (username, senha) => {
   return axios
-    .post(API_URL + "login", {
+    .post(API_URL + "api/Home/login", {
       username,
       senha,
     })
@@ -21,6 +21,7 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 const AuthService = {
+  API_URL,
   login,
   logout,
   getCurrentUser,

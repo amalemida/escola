@@ -1,37 +1,67 @@
 import { useEffect, useState } from "react";
-import styles from "@/styles/Alunos.module.css";
+import styles from "@/styles/ListaAlunos.module.css";
+import { IconeEdicao, IconeLixo } from "@/components/Icones";
+import AuthService from "@/services/AuthService";
+import axios from "axios";
 
-export default function ListaAlunos() {
+export default function ListaAlunos(props) {
+  const urlAPI = AuthService.API_URL + "api/Aluno/";
   const [lista, setLista] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:5241/api/Aluno")
-      .then((resp) => resp.json())
-      .then((alunos) => setLista(alunos));
-
-    console.log(lista);
-  }, []);
-
-  return (
-      <table className={styles.table}>
-        <thead className={styles.thead}>
-          <tr>
-            <th className={styles.th}>RA</th>
-            <th className={styles.th}>Nome</th>
-            <th className={styles.th}>Curso</th>
-          </tr>
-        </thead>
-        {lista.map((aluno) => {
-          return (
-            <tbody>
-              <tr>
-                <td className={styles.td}>{aluno.ra}</td>
-                <td className={styles.td}>{aluno.nome}</td>
-                <td className={styles.td}>{aluno.codCurso}</td>
-              </tr>
-            </tbody>
-          );
-        })}
-      </table>
-  );
+  const user = AuthService.getCurrentUser();
+  //console.log("USER: " + user)
+  if (user) {
+    useEffect(() => {
+      /*fetch('http://localhost:5176/api/aluno')
+.then(resp => resp.json())
+.then(alunos => setLista(alunos))
+.catch(error => console.log("ERRO FETCH"));*/
+      axios(urlAPI).then((resp) => {
+        setLista(resp.data);
+      });
+    }, []);
+    const renderTable = () => {
+      return (
+        <table className={styles.tabAlunos}>
+          <thead>
+            <tr className={styles.cabecTabela}>
+              <th className={styles.tabTituloRa}>RA</th>
+              <th className={styles.tabTituloNome}>Nome</th>
+              <th>Curso</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {lista.map((aluno, i) => {
+              return (
+                <tr key={aluno.id}>
+                  <td> {aluno.ra} </td>
+                  <td> {aluno.nome} </td>
+                  <td> {aluno.codCurso} </td>
+                  <td>
+                    <button
+                      className={styles.linhaButton}
+                      style={{ color: "blue" }}
+                      onClick={() => props.carregar(aluno)}
+                    >
+                      {IconeEdicao}
+                    </button>
+                    <button
+                      className={styles.linhaButton}
+                      style={{ color: "red" }}
+                      onClick={() => props.remover(aluno)}
+                    >
+                      {IconeLixo}
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      );
+    };
+    return <div>{renderTable()}</div>;
+  } else {
+    return <div>Não autorizado</div>;
+  }
 }

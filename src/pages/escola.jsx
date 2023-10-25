@@ -4,13 +4,14 @@ import styles from "../styles/Escola.module.css";
 import Rodape from "@/components/layout/Rodape";
 import Logo from "@/components/layout/Logo";
 import { useRouter } from "next/router";
-import ListaAlunos from "@/components/Alunos/ListaAlunos";
 import Login from "@/components/Login/Login";
 import { useEffect, useState } from "react";
 import Logout from "@/components/Logout/Logout";
 import AuthService from "@/services/AuthService";
 import { useAppContext } from "@/data/context/AppContext";
 import { useLocalStorage } from "@/data/context/LocalStorageContext";
+import Alunos from "@/components/Alunos/Alunos";
+
 
 export default function escola() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function escola() {
 
   //console.log(id)
   const [currentUser, setCurrentUser] = useState(undefined);
-  const localStorageData = useLocalStorage();
+  //const localStorageData = useLocalStorage();
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -47,7 +48,7 @@ export default function escola() {
       if (id === "alunos") {
         return (
           <Corpo titulo="Cadastro de Alunos">
-            <ListaAlunos />
+            <Alunos />
           </Corpo>
         );
       }
