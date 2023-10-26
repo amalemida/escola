@@ -1,19 +1,32 @@
 import Link from "next/link";
 import styles from "../../styles/Escola.module.css";
-import { useLocalStorage } from "@/data/context/LocalStorageContext";
+import { useEffect, useState } from "react";
+
 
 export default function Menu(props) {
-  const localStorageData = useLocalStorage();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setIsLoggedIn(true);
+    }
+  });
+
+  if (!isLoggedIn) {
+    return (
+      <nav className={styles.menu}>
+        <Link href="/escola?id=login">Login</Link>
+      </nav>
+    );
+    
+  }
   return (
     <nav className={styles.menu}>
       <Link href="/escola?id=alunos">Alunos</Link>
       <Link href="/escola?id=cursos">Cursos</Link>
       <Link href="/escola?id=carometro">Carômetro</Link>
-      {!localStorage.getItem("user") ? (
-        <Link href="/escola?id=login">Login</Link>
-      ) : (
-        <Link href="/escola?id=logout">Logout</Link>
-      )}
+      <Link href="/escola?id=logout">Logout</Link>
     </nav>
   );
 }
