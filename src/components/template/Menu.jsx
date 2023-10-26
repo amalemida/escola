@@ -13,6 +13,11 @@ export default function Menu(props) {
     }
   });
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+  };
+
   if (!isLoggedIn) {
     return (
       <nav className={styles.menu}>
@@ -26,7 +31,7 @@ export default function Menu(props) {
       <Link href="/escola?id=alunos">Alunos</Link>
       <Link href="/escola?id=cursos">Cursos</Link>
       <Link href="/escola?id=carometro">Carômetro</Link>
-      <Link href="/escola?id=logout">Logout</Link>
+      <Link href="/escola?id=logout" onClick={handleLogout}>Logout</Link>
     </nav>
   );
 }
