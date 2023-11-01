@@ -1,41 +1,29 @@
-import { useState } from "react";
-import styles from "@/styles/CrudAluno.module.css";
+import { useEffect, useState } from "react";
+import styles from "@/styles/CrudAluno.module.css"
 import axios from "axios";
 import AuthService from "@/services/AuthService";
 
 export default function CrudAlunos(props) {
   const urlAPI = AuthService.API_URL + "api/Aluno/";
   const [aluno, setAluno] = useState(props.alunoForm);
-  const [lista, setLista] = useState([]);
   const initialState = { id: 0, ra: "", nome: "", codCurso: 0 };
   const limpar = () => {
     setAluno(initialState);
   };
-
   const salvar = () => {
     const dadosAluno = props.alunoForm;
     dadosAluno.c = Number(dadosAluno.codcurso);
-    const metodo = "post";
-    const url = urlAPI;
-    console.log("metodo do salvar: " + url);
-
+    const metodo = dadosAluno.id ? "put" : "post";
+    const url = dadosAluno.id ? `${urlAPI}${dadosAluno.id}` : urlAPI;
+    console.log("metodo do salvar: " + metodo + url);
     axios[metodo](url, dadosAluno).then((resp) => {
-      const dadosLista = getListaAtualizada(resp.data);
-      setLista(dadosLista);
       limpar();
     });
   };
-
-  const getListaAtualizada = () => {
-    const listaAtual = lista.filter((a) => a.id !== aluno.id);
-    listaAtual.unshift(aluno);
-    return listaAtual;
-  };
-
   const atualizaCampo = (evento) => {
-    //clonar usuário a partir do state, para não alterar o state diretamente;
+    //clonar usuário a partir do state, para não alterar o state diretamente
     const alunoAtual = { ...props.alunoForm };
-    //usar o atributo NAME do input para identificar o campo a ser atualizado;
+    //usar o atributo NAME do input para identificar o campo a ser atualizado
     alunoAtual[evento.target.name] = evento.target.value;
     //atualizar o state
     props.alunoSet(alunoAtual);
@@ -68,7 +56,7 @@ export default function CrudAlunos(props) {
         id="codCurso"
         placeholder="0"
         className={styles.formInput}
-        name="codCurso"
+        name="codcurso"
         value={props.alunoForm.codcurso}
         onChange={(e) => atualizaCampo(e)}
       />

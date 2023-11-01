@@ -9,9 +9,7 @@ import { useEffect, useState } from "react";
 import Logout from "@/components/Logout/Logout";
 import AuthService from "@/services/AuthService";
 import { useAppContext } from "@/data/context/AppContext";
-import { useLocalStorage } from "@/data/context/LocalStorageContext";
 import Alunos from "@/components/Alunos/Alunos";
-
 
 export default function escola() {
   const router = useRouter();
@@ -19,16 +17,14 @@ export default function escola() {
 
   const dados = useAppContext();
 
-  //console.log(id)
-  const [currentUser, setCurrentUser] = useState(undefined);
-  //const localStorageData = useLocalStorage();
+  const [currentUser, setCurrentUser] = useState(false);
 
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      setCurrentUser(user);
+    const currentUser = AuthService.getCurrentUser();
+    if (currentUser) {
+      setCurrentUser(true);
     }
-  }, []);
+  });
   const renderiza = () => {
     if (!id) {
       return (
@@ -44,7 +40,7 @@ export default function escola() {
     if (id === "logout") {
       return <Logout />;
     }
-    if (localStorage.getItem("user")) {
+    if (currentUser) {
       if (id === "alunos") {
         return (
           <Corpo titulo="Cadastro de Alunos">
