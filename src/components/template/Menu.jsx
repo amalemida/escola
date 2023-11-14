@@ -10,7 +10,7 @@ export default function Menu(props) {
   const localStorageData = useLocalStorage()
 
   useEffect(() => {
-    if (localStorageData) {
+    if (localStorage.getItem("user")) {
       setIsLoggedIn(true);
     }
   });
@@ -21,7 +21,7 @@ export default function Menu(props) {
   };
 
   console.log("LocalStorageData " + localStorageData.nome)
-  if (localStorageData) {
+  if (!isLoggedIn) {
     return (
       <nav className={styles.menu}>
         <Link href="/escola?id=login">Login</Link>
