@@ -10,6 +10,7 @@ import Logout from "@/components/Logout/Logout";
 import AuthService from "@/services/AuthService";
 import { useAppContext } from "@/data/context/AppContext";
 import Alunos from "@/components/Alunos/Alunos";
+import Cursos from "@/components/Cursos/Cursos";
 
 export default function escola() {
   const router = useRouter();
@@ -51,7 +52,7 @@ export default function escola() {
       if (id === "cursos") {
         return (
           <Corpo titulo="Cadastro de Cursos">
-            <div>Cadastro de Cursos</div>
+            <Cursos/>
           </Corpo>
         );
       }
