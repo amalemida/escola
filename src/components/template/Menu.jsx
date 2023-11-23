@@ -32,6 +32,7 @@ export default function Menu(props) {
     <nav className={styles.menu}>
       <Link href="/escola?id=alunos">Alunos</Link>
       <Link href="/escola?id=cursos">Cursos</Link>
+      <Link href="/escola?id=professores">Professores</Link>
       <Link href="/escola?id=carometro">Carômetro</Link>
       <Link href="/escola?id=logout" onClick={handleLogout}>
         Logout

@@ -7,7 +7,7 @@
   margin-left: 20px;
 }
 
-.listaAlunos {
+.listaProfessores {
   margin-left: 20px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -24,8 +24,8 @@
   padding: 10px;
 }
 
-.tabTituloRa {
-  width: 100px;
+.tabTituloEmail {
+  width: 200px;
 }
 
 .tabTituloNome {
@@ -87,6 +87,6 @@
   margin: 5px;
 }
 
-.tabAlunos {
+.tabProfessores {
   margin-top: 10px;
 }

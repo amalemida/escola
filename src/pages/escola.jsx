@@ -11,6 +11,7 @@ import AuthService from "@/services/AuthService";
 import { useAppContext } from "@/data/context/AppContext";
 import Alunos from "@/components/Alunos/Alunos";
 import Cursos from "@/components/Cursos/Cursos";
+import Professores from "@/components/Professores/Professores";
 
 export default function escola() {
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function escola() {
     if (!id) {
       return (
         <Corpo titulo="Bem vindo!">
-          <div>Cadastro de alunos, cursos e carômetro</div>
+          <div>Cadastro de alunos, cursos, professores e carômetro</div>
           <h2>{dados.nome}</h2>
         </Corpo>
       );
@@ -53,6 +54,13 @@ export default function escola() {
         return (
           <Corpo titulo="Cadastro de Cursos">
             <Cursos/>
+          </Corpo>
+        );
+      }
+      if (id === "professores") {
+        return (
+          <Corpo titulo="Cadastro de Professores">
+            <Professores/>
           </Corpo>
         );
       }

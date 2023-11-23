@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import styles from "@/styles/CrudCurso.module.css";
+import styles from "@/styles/CrudCursos.module.css";
 import axios from "axios";
 import AuthService from "@/services/AuthService";
 
 export default function CrudCursos(props) {
   const urlAPI = AuthService.API_URL + "api/Curso/";
   const [curso, setCurso] = useState(props.cursoForm);
-  const initialState = { id: 0, ra: "", nome: "", codCurso: 0 };
+  const initialState = { id: 0, codigo: 0, nome: "", periodo: "" };
   const limpar = () => {
     setCurso(initialState);
   };
   const salvar = () => {
     const dadosCurso = props.cursoForm;
-    dadosCurso.c = Number(dadosCurso.codcurso);
+    dadosCurso.c = Number(dadosCurso.codCurso);
     const metodo = dadosCurso.id ? "put" : "post";
     const url = dadosCurso.id ? `${urlAPI}${dadosCurso.id}` : urlAPI;
     console.log("metodo do salvar: " + metodo + url);

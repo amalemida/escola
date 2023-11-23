@@ -7,9 +7,9 @@ export default function Cursos() {
   const urlAPI = AuthService.API_URL + "api/Curso/";
   const cursoIni = {
     id: 0,
-    ra: "",
+    codigo: "",
     nome: "",
-    codCurso: 0,
+    periodo: 0,
   };
   const [curso, setCurso] = useState(cursoIni);
   function carregar(cursoForm) {
@@ -20,7 +20,7 @@ export default function Cursos() {
   const remover = (cursoForm) => {
     const url = urlAPI + cursoForm.id;
     console.log(url);
-    if (window.confirm("Confirma remoção do curso: " + cursoForm.ra)) {
+    if (window.confirm("Confirma remoção do curso: " + cursoForm.codigo)) {
       console.log("entrou no confirm");
       axios["delete"](url, cursoForm).then((resp) => {
         console.log(resp.data);

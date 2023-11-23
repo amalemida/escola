@@ -1,49 +1,54 @@
 import { useEffect, useState } from "react";
-import styles from "@/styles/ListaCursos.module.css";
+import styles from "@/styles/ListaProfessores.module.css";
 import { IconeEdicao, IconeLixo } from "@/components/Icones";
 import AuthService from "@/services/AuthService";
 import axios from "axios";
 
-export default function ListaCursos(props) {
-  const urlAPI = AuthService.API_URL + "api/Curso/";
+export default function ListaProfessores(props) {
+  const urlAPI = AuthService.API_URL + "api/Professor/";
   const [lista, setLista] = useState([]);
   const user = AuthService.getCurrentUser();
+  //console.log("USER: " + user)
   if (user) {
     useEffect(() => {
+      /*fetch('http://localhost:5176/api/professor')
+.then(resp => resp.json())
+.then(professores => setLista(professores))
+.catch(error => console.log("ERRO FETCH"));*/
       axios(urlAPI).then((resp) => {
         setLista(resp.data);
       });
     }, []);
     const renderTable = () => {
       return (
-        <table className={styles.tabCursos}>
+        <table className={styles.tabProfessores}>
           <thead>
             <tr className={styles.cabecTabela}>
-              <th className={styles.tabTituloCodigo}>Código</th>
               <th className={styles.tabTituloNome}>Nome</th>
-              <th>Período</th>
+              <th className={styles.tabTituloEmail}>Email</th>
+              <th>Curso</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {lista.map((curso, i) => {
+            {lista.map((professor, i) => {
               return (
-                <tr key={curso.id}>
-                  <td> {curso.codigo} </td>
-                  <td> {curso.nome} </td>
-                  <td> {curso.periodo} </td>
+                <tr key={professor.id}>
+                  <td> {professor.nome} </td>
+                  <td> {professor.email} </td>
+                  <td> {professor.codCurso} </td>
                   <td>
                     <button
                       className={styles.linhaButton}
                       style={{ color: "blue" }}
-                      onClick={() => props.carregar(curso)}
+                      onClick={() => props.carregar(professor)}
                     >
                       {IconeEdicao}
                     </button>
                     <button
                       className={styles.linhaButton}
                       style={{ color: "red" }}
-                      onClick={() => props.remover(curso)}
+                      onClick={() => props.remover(professor)}
                     >
                       {IconeLixo}
                     </button>
