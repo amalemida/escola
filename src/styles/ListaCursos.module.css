@@ -1,4 +1,4 @@
-.incluiContainer {
+  .incluiContainer {
   border-radius: 5px;
   background-color: #cccccc;
   padding: 10px;
@@ -7,7 +7,7 @@
   margin-left: 20px;
 }
 
-.listaAlunos {
+.listaCursos {
   margin-left: 20px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -24,7 +24,7 @@
   padding: 10px;
 }
 
-.tabTituloRa {
+.tabTituloCodigo {
   width: 100px;
 }
 
@@ -87,6 +87,6 @@
   margin: 5px;
 }
 
-.tabAlunos {
+.tabCursos {
   margin-top: 10px;
 }

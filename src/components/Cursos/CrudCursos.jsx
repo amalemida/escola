@@ -1,63 +1,63 @@
 import { useEffect, useState } from "react";
-import styles from "@/styles/CrudAlunos.module.css"
+import styles from "@/styles/CrudCursos.module.css";
 import axios from "axios";
 import AuthService from "@/services/AuthService";
 
-export default function CrudAlunos(props) {
-  const urlAPI = AuthService.API_URL + "api/Aluno/";
-  const [aluno, setAluno] = useState(props.alunoForm);
-  const initialState = { id: 0, ra: "", nome: "", codCurso: 0 };
+export default function CrudCursos(props) {
+  const urlAPI = AuthService.API_URL + "api/Curso/";
+  const [curso, setCurso] = useState(props.cursoForm);
+  const initialState = { id: 0, codigo: 0, nome: "", periodo: "" };
   const limpar = () => {
-    setAluno(initialState);
+    setCurso(initialState);
   };
   const salvar = () => {
-    const dadosAluno = props.alunoForm;
-    dadosAluno.c = Number(dadosAluno.codCurso);
-    const metodo = dadosAluno.id ? "put" : "post";
-    const url = dadosAluno.id ? `${urlAPI}${dadosAluno.id}` : urlAPI;
+    const dadosCurso = props.cursoForm;
+    dadosCurso.c = Number(dadosCurso.codCurso);
+    const metodo = dadosCurso.id ? "put" : "post";
+    const url = dadosCurso.id ? `${urlAPI}${dadosCurso.id}` : urlAPI;
     console.log("metodo do salvar: " + metodo + url);
-    axios[metodo](url, dadosAluno).then((resp) => {
+    axios[metodo](url, dadosCurso).then((resp) => {
       limpar();
     });
   };
   const atualizaCampo = (evento) => {
     //clonar usuário a partir do state, para não alterar o state diretamente
-    const alunoAtual = { ...props.alunoForm };
+    const cursoAtual = { ...props.cursoForm };
     //usar o atributo NAME do input para identificar o campo a ser atualizado
-    alunoAtual[evento.target.name] = evento.target.value;
+    cursoAtual[evento.target.name] = evento.target.value;
     //atualizar o state
-    props.alunoSet(alunoAtual);
+    props.cursoSet(cursoAtual);
   };
   return (
     <div className={styles.incluiContainer}>
-      <label className={styles.labelForm}> RA: </label>
+      <label className={styles.labelForm}> Código: </label>
       <input
-        type="text"
-        id="ra"
-        placeholder="RA do aluno"
+        type="number"
+        id="codigo"
+        placeholder="0"
         className={styles.formInput}
-        name="ra"
-        value={props.alunoForm.ra}
+        name="codigo"
+        value={props.cursoForm.codigo}
         onChange={(e) => atualizaCampo(e)}
       />
       <label> Nome: </label>
       <input
         type="text"
         id="nome"
-        placeholder="Nome do aluno"
+        placeholder="nome"
         className={styles.formInput}
         name="nome"
-        value={props.alunoForm.nome}
+        value={props.cursoForm.nome}
         onChange={(e) => atualizaCampo(e)}
       />
-      <label> Código do Curso: </label>
+      <label> Período: </label>
       <input
-        type="number"
-        id="codCurso"
-        placeholder="0"
+        type="text"
+        id="periodo"
+        placeholder="período"
         className={styles.formInput}
-        name="codCurso"
-        value={props.alunoForm.codCurso}
+        name="periodo"
+        value={props.cursoForm.periodo}
         onChange={(e) => atualizaCampo(e)}
       />
       <button className={styles.btnSalvar} onClick={(e) => salvar(e)}>
